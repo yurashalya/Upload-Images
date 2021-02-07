@@ -1,2 +1,2 @@
 # Upload-Images
-Create custom plugin for upload images ( Vanila JS ) 
+Create custom plugin for upload images ( Vanilla JS ) 
