@@ -7,7 +7,6 @@ body {
 
 .container {
     padding-top: 5rem;
-    width: 800px;
     margin: 0 auto;
 }
 
@@ -56,6 +55,7 @@ input[type=file] {
 .preview {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
     padding: .5rem;
 }
 
@@ -75,3 +75,50 @@ input[type=file] {
     width: 180px;
     height: auto;
 }
+
+.preview-image:hover .preview-remove {
+    opacity: 1;
+}
+
+.preview-image:hover .preview-info {
+    bottom: 4px;
+}
+
+.preview-remove {
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-weight: bold;
+    background: rgba(255, 255, 255, .6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity .25s;
+}
+
+.preview-info {
+    position: absolute;
+    right: 0;
+    bottom: -30px;
+    left: 0;
+    height: 24px;
+    font-size: .8rem;
+    background: rgba(255, 255, 255, .5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px;
+    transition: bottom .22s;
+}
+
+.preview-info span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 70%;
+}
+
