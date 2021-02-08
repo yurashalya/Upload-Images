@@ -7,16 +7,31 @@ const bytesToSize = (bytes) => {
   return Math.round(bytes / Math.pow(1024, i)) + " " + sizes[i];
 };
 
+const element = (tag, classes = [], content) => {
+  const node = document.createElement(tag);
+
+  if (classes.length) {
+    node.classList.add(...classes);
+  }
+
+  if (content) {
+    node.textContent = content;
+  }
+
+  return node;
+};
+
+const empty = () => {};
+
 export const uploadFile = (selector, options = {}) => {
   let files = [];
+  const onUpload = options.onUpload ?? empty;
+
   const input = document.querySelector(selector);
-  const preview = document.createElement("div");
-
-  preview.classList.add("preview");
-
-  const openButton = document.createElement("button");
-  openButton.classList.add("btn");
-  openButton.textContent = "Open";
+  const preview = element("div", ["preview"]);
+  const openButton = element("button", ["btn"], "Open");
+  const uploadButton = element("button", ["btn", "primary"], "Upload");
+  uploadButton.style.display = "none";
 
   if (options.multi) {
     input.setAttribute("multiple", true);
@@ -26,6 +41,7 @@ export const uploadFile = (selector, options = {}) => {
   }
 
   input.insertAdjacentElement("afterend", preview);
+  input.insertAdjacentElement("afterend", uploadButton);
   input.insertAdjacentElement("afterend", openButton);
 
   const triggerInput = () => input.click();
@@ -37,6 +53,8 @@ export const uploadFile = (selector, options = {}) => {
     files = Array.from(e.target.files);
 
     preview.innerHTML = "";
+    uploadButton.style.display = "inline";
+
     files.forEach((file) => {
       if (!file.type.match("image")) {
         return;
@@ -74,9 +92,9 @@ export const uploadFile = (selector, options = {}) => {
     const { name } = e.target.dataset;
     files = files.filter((file) => file.name !== name);
 
-    // if (!files.length) {
-    //   upload.style.display = "none";
-    // }
+    if (!files.length) {
+      uploadButton.style.display = "none";
+    }
 
     const block = preview
       .querySelector(`[data-name="${name}"]`)
@@ -86,7 +104,20 @@ export const uploadFile = (selector, options = {}) => {
     setTimeout(() => block.remove(), 300);
   };
 
+  const clearPreview = (el) => {
+    el.style.bottom = "4px";
+    el.innerHTML = '<div class="preview-info-progress"></div>';
+  };
+
+  const uploadHandler = () => {
+    preview.querySelectorAll(".preview-remove").forEach((e) => e.remove());
+    const previewInfo = preview.querySelectorAll(".preview-info");
+    previewInfo.forEach(clearPreview);
+    onUpload(files, previewInfo);
+  };
+
   openButton.addEventListener("click", triggerInput);
   input.addEventListener("change", changeHandler);
   preview.addEventListener("click", removeHandler);
+  uploadButton.addEventListener("click", uploadHandler);
 };

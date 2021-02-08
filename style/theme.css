@@ -34,7 +34,7 @@ body {
     font-size: 11px;
 }
 
-.btn.upload {
+.btn.primary {
     background: #42b983;
     color: #fff;
 }
@@ -122,3 +122,14 @@ input[type=file] {
     width: 70%;
 }
 
+.preview-info-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #42b983;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width .29s;
+}
