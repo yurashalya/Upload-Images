@@ -1,0 +1,23 @@
+{
+  "name": "Upload-Images",
+  "version": "1.0.0",
+  "description": "Create custom plugin for upload images ( Vanilla JS )",
+  "main": "index.js",
+  "scripts": {
+    "serve": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yurashalya/Upload-Images.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yurashalya/Upload-Images/issues"
+  },
+  "homepage": "https://github.com/yurashalya/Upload-Images#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
